@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>装饰器模式</title>
+  </head>
+  <body>
+    <script>
+      class RealImg {
+        constructor(fileName) {
+          this.fileName = fileName;
+          this.loadFromDisk();
+        }
+        display() {
+          console.log("display....." + this.fileName);
+        }
+        loadFromDisk() {
+          console.log("loading....." + this.fileName);
+        }
+      }
+
+      class ProxyImg {
+        constructor(fileName) {
+          this.realImg = new RealImg(fileName);
+        }
+        display() {
+          this.realImg.display();
+        }
+      }
+
+      // test
+
+      let proxyImg = new ProxyImg("1.png");
+      proxyImg.display();
+    </script>
+  </body>
+</html>

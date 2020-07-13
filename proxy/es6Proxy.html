@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 明星
+      let star = {
+        name: "布莱克",
+        age: 25,
+        phone: "star: 15001866988",
+      };
+
+      // 经纪人
+      let agent = new Proxy(star, {
+        get(target, key) {
+          if (key === "phone") {
+            // 返回经纪人自己电话
+            return "agent: 15722334455";
+          }
+          if (key === "price") {
+            // 明星不报价， 经纪人报价
+            return 120000;
+          }
+          return target[key];
+        },
+        set(target, key, val) {
+          if (key === "customPrice") {
+            if (val < 100000) {
+              // 最低十万
+              throw new Error("价格太低啦");
+            } else {
+              target[key] = val;
+              return true;
+            }
+          }
+        },
+      });
+
+      // test
+
+      console.log(agent.name);
+      console.log(agent.age);
+      console.log(agent.phone);
+      console.log(agent.price);
+
+      agent.customPrice = 150000;
+      console.log(agent.customPrice);
+
+      // const obj = {};
+      // Object.defineProperty(obj, "foo", {
+      //   value: "bar",
+      //   writable: true,
+      // });
+
+      // const handler = {
+      //   get(target, key) {
+      //     console.log(111111111111);
+      //     return target[key];
+      //   },
+      //   set(obj, prop, value, receiver) {
+      //     obj[prop] = "baz";
+      //   },
+      // };
+
+      // const proxy = new Proxy(obj, handler);
+      // proxy.foo = "11";
+      // console.log(proxy.foo);
+    </script>
+  </body>
+</html>

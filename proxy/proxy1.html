@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="div1">
+      <a href="#">a1</a>
+      <a href="#">a2</a>
+      <a href="#">a3</a>
+      <a href="#">a4</a>
+      <a href="#">a5</a>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // 原生
+      // let div1 = document.getElementById("div1");
+      // div1.addEventListener("click", (e) => {
+      //   let target = e.target;
+      //   if (target.nodeName === "A") {
+      //     alert(target.innerHTML);
+      //   }
+      // });
+
+
+      // jquery
+      $("#div1").click(function () {
+        var fn = function () {
+          $(this).css("background-color", "yellow");
+        };
+        fn = $.proxy(fn, this);
+        setTimeout(fn, 1000);
+      });
+
+
+      
+    </script>
+  </body>
+</html>

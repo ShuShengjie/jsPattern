@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let callbacks = $.Callbacks();
+      callbacks.add((info) => {
+       setTimeout(() => {
+        console.log("fn1", info);
+       }, 100)
+      });
+      callbacks.add((info) => {
+        console.log("fn2", info);
+      });
+      callbacks.add((info) => {
+        console.log("fn3", info);
+      });
+      callbacks.fire('gogogo')
+      callbacks.fire('fire')
+    </script>
+  </body>
+</html>

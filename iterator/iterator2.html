@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>111</p>
+    <p>222</p>
+    <p>333</p>
+    <script>
+      function each(data) {
+        // 生成迭代器
+        // let iterator = data[Symbol.iterator]();
+        // let item = {done: false}
+        // while(!item.done) {
+        //   item = iterator.next()
+        //   if(!item.done) {
+        //     console.log(item.value)
+        //   }
+        // }
+
+        // 带有遍历器特性的对象: data[Symbol.iterator] 有值
+        for(let item of data) {
+          console.log(item)
+        }
+        console.log('-----------------------');
+        
+      }
+
+      let arr = [1, 2, 3, 4];
+      let nodelist = document.getElementsByTagName("p");
+      let m = new Map();
+      m.set("a", 100);
+      m.set("b", 100);
+      each(arr);
+      each(nodelist);
+      each(m);
+    </script>
+  </body>
+</html>

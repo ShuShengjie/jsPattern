@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="div1">
+      <a href="#">a1</a>
+      <a href="#">a2</a>
+      <a href="#">a3</a>
+      <a href="#">a4</a>
+      <a href="#">a5</a>
+    </div>
+    <script>
+      class Iterator {
+        constructor(container) {
+          this.list = container.list;
+          this.index = 0;
+        }
+        next() {
+          if (this.hasNext()) {
+            return this.list[this.index++];
+          }
+          return null;
+        }
+        hasNext() {
+          if (this.index >= this.list.length) {
+            return false;
+          }
+          return true;
+        }
+      }
+      class Container {
+        constructor(list) {
+          this.list = list;
+        }
+        // 生成迭代器
+        getIterator() {
+          return new Iterator(this);
+        }
+      }
+
+      // test
+
+      let arr = [1, 2, 3, 4, 5, 6];
+      let container = new Container(arr);
+      let iterator = container.getIterator();
+      while (iterator.hasNext()) {
+        console.log(iterator.next());
+      }
+      let nodeList = document.getElementsByTagName("a");
+      let nodeListContainer = new Container(nodeList);
+      let nodeListIterator = nodeListContainer.getIterator();
+      while (nodeListIterator.hasNext()) {
+        console.log(nodeListIterator.next());
+      }
+    </script>
+  </body>
+</html>

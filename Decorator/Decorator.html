@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>装饰器模式</title>
+  </head>
+  <body>
+    <script>
+      class Circle {
+        draw() {
+          console.log("画一个圆");
+        }
+      }
+
+      class Decorator {
+        constructor(circle) {
+          this.circle = circle;
+        }
+        draw() {
+          this.circle.draw();
+          this.setRedBorder(this.circle);
+        }
+        setRedBorder(circle) {
+          console.log(`设置红色边框`);
+        }
+      }
+
+      // test
+
+      let circle = new Circle();
+      circle.draw();
+      console.log("-----------------------------");
+      let dec = new Decorator(circle);
+      dec.draw();
+    </script>
+  </body>
+</html>

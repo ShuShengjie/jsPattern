@@ -141,7 +141,6 @@ console.log(p.name())
 
 // 手写简易promise
 import StateMachine from "javascript-state-machine";
-import { resolve } from "upath";
 
 // 状态机模型
 let fsm = new StateMachine({
@@ -162,10 +161,11 @@ let fsm = new StateMachine({
     // 监听resolve
     onResolve(state, data) {
       // state - 当前状态机实例 data - fsm.resolve(xxx)传递的参数
-
+      data.successList.forEach(fn => fn())
     },
-    onRejected(state, data) {
+    onReject(state, data) {
       // state - 当前状态机实例 data - fsm.reject(xxx)传递的参数
+      data.failList.forEach(fn => fn())
     }
   }
 })
@@ -173,25 +173,50 @@ let fsm = new StateMachine({
 // 定义promise 
 class MyPromise {
   constructor(fn) {
-    fn(function() {
+    this.successList = [];
+    this.failList = [];
+    fn(() => {
       // resolve函数
-    }, function() {
+      fsm.resolve(this)
+    }, () => {
       // reject函数
+      fsm.reject(this)
     })
+  }
+  then(successFn, failFn) {
+    this.successList.push(successFn)
+    this.failList.push(failFn)
   }
 }
 
 // test
 function loadImg(src) {
-  const promise = new MyPromise((resolve, reject) => {
+  const promise = new MyPromise(function (resolve, reject) {
     let img = document.createElement('img')
-    img.onload = function() {
+    img.onload = function () {
       resolve(img)
     }
-    img.onerror = function() {
+    img.onerror = function () {
       reject()
     }
     img.src = src;
+    document.body.appendChild(img)
   })
   return promise
 }
+
+let src = '../img/home_ill.png';
+let result = loadImg(src);
+
+result.then(function () {
+  console.log('ok1')
+}, function () {
+  console.log('failed1')
+})
+
+
+result.then(function () {
+  console.log('ok2')
+}, function () {
+  console.log('failed2')
+})

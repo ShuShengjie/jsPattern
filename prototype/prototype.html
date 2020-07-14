@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>原型模式</title>
+  </head>
+  <body>
+    <script>
+      // 一个原型对象
+      let prototype = {
+        getName() {
+          return this.first + " " + this.last;
+        },
+        say() {
+          console.log("hello");
+        },
+      };
+
+      // 基于原型对象创建x
+      let x = Object.create(prototype);
+      x.first = "A";
+      x.last = "B";
+      console.log(x.getName());
+      x.say();
+      // 基于原型对象创建y
+      let y = Object.create(prototype);
+      y.first = "C";
+      y.last = "D";
+      console.log(y.getName());
+      y.say();
+    </script>
+  </body>
+</html>
